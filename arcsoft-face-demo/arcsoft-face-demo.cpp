@@ -1,12 +1,9 @@
 // arcsoft-face-demo.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-//
-
-#include <iostream>
+#include "pch.h"
 
 #include <arcsoft_face.h>
 
-#define moutln(args) std::cout << args << std::endl;
-
+     
 int main()
 {
     auto && face = tz::ai::arcsoft::Face();
