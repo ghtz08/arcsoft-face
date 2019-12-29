@@ -15,8 +15,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)arcsoft_face.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)error.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)arcsoft_face.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)error.h" />
   </ItemGroup>
 </Project>
