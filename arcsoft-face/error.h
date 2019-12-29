@@ -14,16 +14,21 @@
 namespace tz::ai::arcsoft
 {
 
-/*
+/* 为异常提供错误码和错误消息
  */
 class FaceError: std::runtime_error
 {
 public:
-	using CodeType = long;
+	using CodeType = long;	// 保持和官方 SDK 的 MRESULT 一样的类型
 public:
 	explicit FaceError(CodeType code, char const * message) : std::runtime_error(message), code_(code) {}
 	explicit FaceError(CodeType code, std::string const & message) : std::runtime_error(message.c_str()), code_(code) {}
 public:
+	/* 通过错误码结合官方文档中的错误码构造异常类
+	 * code: 官方 SDK 的接口返回的错误码（不包括 MOK 也就是 0）
+	 * return: 相应的 FaceError
+	 * except: 内部使用的容器可能抛出 Allocator::allocate 所抛出的异常
+	 */
 	auto make(CodeType const code) -> FaceError;
 private:
 	CodeType code_;
