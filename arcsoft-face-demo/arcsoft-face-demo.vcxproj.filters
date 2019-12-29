@@ -21,7 +21,7 @@
     <ClCompile Include="..\arcsoft-face\arcsoft_face.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\arcsoft-face\error.cpp">
+    <ClCompile Include="..\arcsoft-face\arcsoft_face_error.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +29,7 @@
     <ClInclude Include="..\arcsoft-face\arcsoft_face.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\arcsoft-face\error.h">
+    <ClInclude Include="..\arcsoft-face\arcsoft_face_error.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

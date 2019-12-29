@@ -152,12 +152,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\arcsoft-face\arcsoft_face.cpp" />
-    <ClCompile Include="..\arcsoft-face\error.cpp" />
+    <ClCompile Include="..\arcsoft-face\arcsoft_face_error.cpp" />
     <ClCompile Include="arcsoft-face-demo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\arcsoft-face\arcsoft_face.h" />
-    <ClInclude Include="..\arcsoft-face\error.h" />
+    <ClInclude Include="..\arcsoft-face\arcsoft_face_error.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
