@@ -67,6 +67,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\property-sheets\arcsoft-arcface-common.props" />
     <Import Project="..\property-sheets\projects-common.props" />
+    <Import Project="..\property-sheets\arcsoft_arcface_x64.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -152,12 +153,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\arcsoft-face\arcsoft_face.cpp" />
-    <ClCompile Include="..\arcsoft-face\arcsoft_face_error.cpp" />
+    <ClCompile Include="..\arcsoft-face\arcsoft_face_except.cpp" />
     <ClCompile Include="arcsoft-face-demo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\arcsoft-face\arcsoft_face.h" />
-    <ClInclude Include="..\arcsoft-face\arcsoft_face_error.h" />
+    <ClInclude Include="..\arcsoft-face\arcsoft_face_except.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

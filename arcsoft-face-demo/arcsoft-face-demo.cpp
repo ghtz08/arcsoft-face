@@ -1,8 +1,16 @@
 // arcsoft-face-demo.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
+#include <iostream>
+
+#include <arcsoft_face.h>
+
+#define moutln(args) std::cout << args << std::endl;
+
 int main()
 {
+    auto && face = tz::ai::arcsoft::Face();
+    moutln(face.description());
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
