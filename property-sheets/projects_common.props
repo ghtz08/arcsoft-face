@@ -7,7 +7,7 @@
     <ClCompile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\arcsoft-face;$(ARCSOFT_FACE_ROOT)\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\include;$(ARCSOFT_FACE_ROOT)\inc</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arcsoft-face", "arcsoft-face\arcsoft-face.vcxitems", "{464A1B37-1B47-4B79-BC15-8AC6C36EB022}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arcsoft-face-dynamic-library", "arcsoft-face-dynamic-library\arcsoft-face-dynamic-library.vcxproj", "{2A85453D-1F55-4043-B123-B43719AFD336}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arcsoft-face-static-library", "arcsoft-face-static-library\arcsoft-face-static-library.vcxproj", "{9B071828-5761-4B35-8FB6-47F85FE5E33C}"
