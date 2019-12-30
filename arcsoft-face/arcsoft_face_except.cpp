@@ -94,7 +94,7 @@ auto FaceError::make
     };
 
     auto const target = face_code.find(code);
-    auto const message = target != face_code.cend()? target->second: "Error code does not exist";
+    auto const message = target != face_code.cend()? target->second: "未知的错误码";
 
     return FaceError(code, message);
 }
