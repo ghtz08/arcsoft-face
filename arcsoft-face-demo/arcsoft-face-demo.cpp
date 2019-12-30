@@ -2,6 +2,7 @@
 #include "pch.h"
 
 #include <arcsoft_face.h>
+#include <arcsoft_face_except.h>
 
      
 int main()

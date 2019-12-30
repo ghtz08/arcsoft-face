@@ -29,10 +29,13 @@ public:
 	};
 public:
 public:
+#pragma warning(push)
+#pragma warning(disable: 4514)	// 未引用的内联函数已移除
 	static auto appID() noexcept -> std::string const & { return Face::app_id_; }
 	static auto appID(std::string_view app_id) -> void { Face::app_id_ = app_id; }
 	static auto sdkKey() noexcept -> std::string const & { return Face::sdk_key_; }
 	static auto sdkKey(std::string_view sdk_key) -> void { Face::sdk_key_ = sdk_key; }
+#pragma warning(pop)
 	static auto description() noexcept -> Description;
 private:
 	void * handle_ = nullptr;
