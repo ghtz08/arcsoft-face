@@ -34,12 +34,12 @@ public:
 	 */
 	auto make(CodeType const code) -> FaceError;
 private:
-	CodeType code_;
+#pragma warning(push)
 #if defined(_WIN64)
-	char reserve[8 - sizeof(CodeType)];
-#else
-#	error 原本是不考虑 x86 的，现在考虑了需要做相应的修改
+#	pragma warning(disable: 4820)	// 字节填充添加在数据成员后
 #endif
+	CodeType code_;
 };
+#pragma warning(pop)
 
 }	// namespace tz::ai::arcsoft::face
