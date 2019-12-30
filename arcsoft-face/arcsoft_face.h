@@ -35,7 +35,7 @@ public:
 	static auto sdkKey(std::string_view sdk_key) -> void { Face::sdk_key_ = sdk_key; }
 	static auto description() noexcept -> Description;
 private:
-	void * handle_;
+	void * handle_ = nullptr;
 private:
 	static std::string app_id_;
 	static std::string sdk_key_;
