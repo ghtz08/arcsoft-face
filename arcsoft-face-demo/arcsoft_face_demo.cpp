@@ -10,7 +10,7 @@ int main()
 {
     using namespace tz::ai::arcsoft;
 
-    auto && face = Face();
+    auto && face = Face(Face::Mode::Image);
     moutln(face.description());
 
     Face::appID(APP_ID);

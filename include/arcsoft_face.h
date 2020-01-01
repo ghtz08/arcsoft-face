@@ -32,10 +32,18 @@ public:
 	using ScaleType = int32_t;
 	using MaxNumType = int32_t;
 	enum class Mask { Detect = 0x1, Feature = 0x4, Age = 0x8, Gender = 0x10, Angle = 0x20, Liveness = 0x80, IRLiveness = 0x400 };
-public:
-	Face() = default;
 private:
-	Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, int32_t mask);
+	struct Mask_
+	{
+		using Value = int32_t;
+		Mask_(Mask mask) : value(static_cast<Value>(mask)) {}
+		Value value;
+	};
+public:
+	Face(Mode mode);
+	~Face();
+private:
+	Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_::Value mask);
 public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
@@ -62,6 +70,15 @@ private:
 private:
 	static std::string app_id_;
 	static std::string sdk_key_;
+	static constexpr auto all_mask_ =
+		static_cast<Mask_::Value>(Mask::Detect) |
+		static_cast<Mask_::Value>(Mask::Feature) |
+		static_cast<Mask_::Value>(Mask::Age) |
+		static_cast<Mask_::Value>(Mask::Gender) |
+		static_cast<Mask_::Value>(Mask::Angle) |
+		static_cast<Mask_::Value>(Mask::Liveness) |
+		static_cast<Mask_::Value>(Mask::IRLiveness) |
+	0;
 };
 
 auto operator << (std::ostream & out, Face::Description const & desc) -> std::ostream &;
@@ -71,13 +88,13 @@ auto operator << (std::ostream & out, Face::Description const & desc) -> std::os
 namespace thread_safety
 {
 
-class Face: thread_unsafety::Face
-{
-public:
-
-private:
-
-};
+//class Face: thread_unsafety::Face
+//{
+//public:
+//
+//private:
+//
+//};
 
 }   // namespace thread_safety
 

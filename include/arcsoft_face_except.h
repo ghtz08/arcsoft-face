@@ -16,7 +16,7 @@ namespace tz::ai::arcsoft
 
 /* 为异常提供错误码和错误消息
  */
-class FaceError: std::runtime_error
+class FaceError: public std::runtime_error
 {
 public:
 	using CodeType = long;	// 保持和官方 SDK 的 MRESULT 一样的类型

@@ -50,6 +50,57 @@ auto Face::activate
     Face::activate();
 }
 
+Face::Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, int32_t mask)
+{
+    static_assert(static_cast<ASF_DetectMode>(Mode::Image) == ASF_DETECT_MODE_IMAGE);
+    static_assert(static_cast<ASF_DetectMode>(Mode::Video) == ASF_DETECT_MODE_VIDEO);
+
+    static_assert(static_cast<ASF_OrientPriority>(Direction::Up) == ASF_OP_0_ONLY);
+    static_assert(static_cast<ASF_OrientPriority>(Direction::Left) == ASF_OP_90_ONLY);
+    static_assert(static_cast<ASF_OrientPriority>(Direction::Right) == ASF_OP_270_ONLY);
+    static_assert(static_cast<ASF_OrientPriority>(Direction::Down) == ASF_OP_180_ONLY);
+    static_assert(static_cast<ASF_OrientPriority>(Direction::All) == ASF_OP_ALL_OUT);
+
+    static_assert(std::is_same_v<ScaleType, MInt32>);
+    static_assert(std::is_same_v<MaxNumType, MInt32>);
+
+    static_assert(static_cast<int>(Mask::Detect) == ASF_FACE_DETECT);
+    static_assert(static_cast<int>(Mask::Feature) == ASF_FACERECOGNITION);
+    static_assert(static_cast<int>(Mask::Age) == ASF_AGE);
+    static_assert(static_cast<int>(Mask::Gender) == ASF_GENDER);
+    static_assert(static_cast<int>(Mask::Angle) == ASF_FACE3DANGLE);
+    static_assert(static_cast<int>(Mask::Liveness) == ASF_LIVENESS);
+    static_assert(static_cast<int>(Mask::IRLiveness) == ASF_IR_LIVENESS);
+    
+    auto const res = ASFInitEngine(
+        static_cast<ASF_DetectMode>(mode),
+        static_cast<ASF_OrientPriority>(dire),
+        scale,
+        max_num,
+        mask,
+        &handle_
+    );
+    if (res != MOK)
+    {
+        throw FaceError::make(res);
+    }
+}
+
+Face::Face(Mode mode)
+    :Face(
+        mode,
+        Direction::Up,
+        mode == Mode::Video? 16: 32,
+        25,
+        Face::all_mask_
+    )
+{ }
+
+Face::~Face()
+{
+    ASFUninitEngine(handle_);
+}
+
 auto operator <<
 (
     std::ostream & out,
