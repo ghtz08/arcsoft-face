@@ -27,7 +27,15 @@ public:
 		Literal build_date;
 		Literal copyright;
 	};
+	enum class Mode { Video, Image = -1 };
+	enum class Direction { Up = 1, Left, Right, Down, All };
+	using ScaleType = int32_t;
+	using MaxNumType = int32_t;
+	enum class Mask { Detect = 0x1, Feature = 0x4, Age = 0x8, Gender = 0x10, Angle = 0x20, Liveness = 0x80, IRLiveness = 0x400 };
 public:
+	Face() = default;
+private:
+	Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, int32_t mask);
 public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
