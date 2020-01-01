@@ -32,7 +32,7 @@ public:
 	 * return: 相应的 FaceError
 	 * except: 内部使用的容器可能抛出 Allocator::allocate 所抛出的异常
 	 */
-	auto make(CodeType const code) -> FaceError;
+	static auto make(CodeType const code) -> FaceError;
 private:
 #pragma warning(push)
 #if defined(_WIN64)
