@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="arcsoft-face-demo.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -25,6 +22,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\source\arcsoft_face_except.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="arcsoft_face_demo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -36,6 +36,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\include\arcsoft_face_except.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="app_id_and_sdk_key.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

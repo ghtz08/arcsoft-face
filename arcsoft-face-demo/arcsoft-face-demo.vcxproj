@@ -155,7 +155,7 @@
   <ItemGroup>
     <ClCompile Include="..\source\arcsoft_face.cpp" />
     <ClCompile Include="..\source\arcsoft_face_except.cpp" />
-    <ClCompile Include="arcsoft-face-demo.cpp">
+    <ClCompile Include="arcsoft_face_demo.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -179,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\arcsoft_face.h" />
     <ClInclude Include="..\include\arcsoft_face_except.h" />
+    <ClInclude Include="app_id_and_sdk_key.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
