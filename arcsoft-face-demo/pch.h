@@ -14,6 +14,8 @@
 #pragma warning(disable: 4668)	// 没有定义宏，用“0”替换“#if/#elif”
 #pragma warning(disable: 4710)	// 函数未内联
 #include <iostream>
+#include <string>
+#include <stdexcept>
 #pragma warning(pop)
 
 #define mout(args) std::cout << args

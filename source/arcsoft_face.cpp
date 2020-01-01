@@ -4,7 +4,10 @@
 #pragma warning(disable: 4820)  // “4”字节填充添加在数据成员后
 #pragma warning(disable: 4828)  // 该字符在当前源字符集中无效（这个文件使用的是 GBK，编译用的是 UTF-8）
 #include <arcsoft_face_sdk.h>
+#include <merror.h>
 #pragma warning(pop)
+
+#include "arcsoft_face_except.h"
 
 namespace tz::ai::arcsoft
 {
@@ -22,6 +25,29 @@ auto Face::description
 
     auto && desc = ASFGetVersion();
     return { desc.Version, desc.BuildDate, desc.CopyRight };
+}
+
+auto Face::activate() -> void
+{
+    auto const res = ASFOnlineActivation(
+        const_cast<char *>(Face::app_id_.data()),
+        const_cast<char *>(Face::sdk_key_.data())
+    );
+    if (res != MOK && res != MERR_ASF_ALREADY_ACTIVATED)
+    {
+        throw FaceError::make(res);
+    }
+}
+
+auto Face::activate
+(
+    std::string app_id,
+    std::string sdk_key
+) -> void
+{
+    Face::app_id_ = std::move(app_id);
+    Face::sdk_key_ = std::move(sdk_key);
+    Face::activate();
 }
 
 auto operator <<

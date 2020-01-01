@@ -7,8 +7,13 @@
      
 int main()
 {
-    auto && face = tz::ai::arcsoft::Face();
+    using namespace tz::ai::arcsoft;
+
+    auto && face = Face();
     moutln(face.description());
+
+    Face::appID("");
+    Face::sdkKey("");
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

@@ -32,15 +32,23 @@ public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
 	static auto appID() noexcept -> std::string const & { return Face::app_id_; }
-	static auto appID(std::string_view app_id) -> void { Face::app_id_ = app_id; }
+	static auto appID(std::string app_id) -> void { Face::app_id_ = std::move(app_id); }
 	static auto sdkKey() noexcept -> std::string const & { return Face::sdk_key_; }
-	static auto sdkKey(std::string_view sdk_key) -> void { Face::sdk_key_ = sdk_key; }
+	static auto sdkKey(std::string sdk_key) -> void { Face::sdk_key_ = std::move(sdk_key); }
 #pragma warning(pop)
 	/* 获取版本、构建日期、版权等信息
 	 */
 	static auto description() noexcept -> Description;
-
-	// static auto activation() noexcept -> void;
+	/* 使用已经设置好 APP ID 和 SDK KEY 来激活 SDK
+	 * return: void
+	 * except: 失败抛出 tz::ai::arcsoft::FaceError
+	 */
+	static auto activate() -> void;
+	/* 使用指定的 APP ID 和 SDK KEY 来激活 SDK
+	 * return: void
+	 * except: 失败抛出 tz::ai::arcsoft::FaceError
+	 */
+	static auto activate(std::string app_id, std::string sdk_key) -> void;
 private:
 	void * handle_ = nullptr;
 private:
