@@ -36,7 +36,11 @@ public:
 	static auto sdkKey() noexcept -> std::string const & { return Face::sdk_key_; }
 	static auto sdkKey(std::string_view sdk_key) -> void { Face::sdk_key_ = sdk_key; }
 #pragma warning(pop)
+	/* 获取版本、构建日期、版权等信息
+	 */
 	static auto description() noexcept -> Description;
+
+	// static auto activation() noexcept -> void;
 private:
 	void * handle_ = nullptr;
 private:
