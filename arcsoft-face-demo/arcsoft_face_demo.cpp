@@ -4,6 +4,7 @@
 #include <arcsoft_face.h>
 #include <arcsoft_face_except.h>
 
+#include "app_id_and_sdk_key.h"
      
 int main()
 {
@@ -12,8 +13,9 @@ int main()
     auto && face = Face();
     moutln(face.description());
 
-    Face::appID("");
-    Face::sdkKey("");
+    Face::appID(APP_ID);
+    Face::sdkKey(SDK_KEY);
+    Face::activate();
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
