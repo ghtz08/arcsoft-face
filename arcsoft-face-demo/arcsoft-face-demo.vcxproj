@@ -153,8 +153,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\arcsoft-face\except.cpp" />
+    <ClCompile Include="..\source\arcsoft-face\face_info.cpp" />
+    <ClCompile Include="..\source\arcsoft-face\image.cpp" />
+    <ClCompile Include="..\source\arcsoft-face\rect.cpp" />
     <ClCompile Include="..\source\arcsoft_face.cpp" />
-    <ClCompile Include="..\source\arcsoft_face_except.cpp" />
     <ClCompile Include="arcsoft_face_demo.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pch.h</PrecompiledHeaderFile>
@@ -177,8 +180,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\arcsoft-face\except.h" />
+    <ClInclude Include="..\include\arcsoft-face\face_info.h" />
+    <ClInclude Include="..\include\arcsoft-face\image.h" />
+    <ClInclude Include="..\include\arcsoft-face\rect.h" />
     <ClInclude Include="..\include\arcsoft_face.h" />
-    <ClInclude Include="..\include\arcsoft_face_except.h" />
     <ClInclude Include="app_id_and_sdk_key.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>

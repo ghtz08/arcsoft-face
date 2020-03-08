@@ -6,13 +6,22 @@
 #pragma warning(disable: 4365)	// 从“long”转换到“unsigned int”，有符号/无符号不匹配
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
 #pragma warning(disable: 4710)	// 函数未内联
+
 #include <string>
 #include <string_view>
 #include <ostream>
+#include <cassert>
+#include <vector>
+#include <array>
+
 #pragma warning(pop)
+
+#include "arcsoft-face/face_info.h"
 
 namespace tz::ai::arcsoft
 {
+
+class Image;
 
 inline namespace thread_unsafety
 {
@@ -32,16 +41,25 @@ public:
 	using ScaleType = int32_t;
 	using MaxNumType = int32_t;
 	enum class Mask { Detect = 0x1, Feature = 0x4, Age = 0x8, Gender = 0x10, Angle = 0x20, Liveness = 0x80, IRLiveness = 0x400 };
+	using MultiFaceInfo = std::vector<FaceInfo>;
+	using Feature = std::vector<uint8_t>;
 private:
+#pragma warning(push)
+#pragma warning(disable: 4514)	// 未引用的内联函数已移除
 	struct Mask_
 	{
 		using Value = int32_t;
 		Mask_(Mask mask) : value(static_cast<Value>(mask)) {}
 		Value value;
 	};
+#pragma warning(pop)
 public:
 	Face(Mode mode);
 	~Face();
+public:
+	auto detectFaces(Image const & image) -> MultiFaceInfo;
+	auto extractFeature(Image const & image, FaceInfo const & face_info) -> Feature;
+	auto compareFeature(Feature const & feat1, Feature const & feat2) -> float;
 private:
 	Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_::Value mask);
 public:

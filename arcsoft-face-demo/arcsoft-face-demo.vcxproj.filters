@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\arcsoft-face">
+      <UniqueIdentifier>{85de8d1d-ce4e-4f4b-aec2-5c391d4ed604}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\arcsoft-face">
+      <UniqueIdentifier>{2386e6ff-3601-494a-a5bb-2d7ccd5ba35c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -21,11 +27,20 @@
     <ClCompile Include="..\source\arcsoft_face.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\arcsoft_face_except.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="arcsoft_face_demo.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\arcsoft-face\image.cpp">
+      <Filter>源文件\arcsoft-face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\arcsoft-face\except.cpp">
+      <Filter>源文件\arcsoft-face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\arcsoft-face\face_info.cpp">
+      <Filter>源文件\arcsoft-face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\arcsoft-face\rect.cpp">
+      <Filter>源文件\arcsoft-face</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,11 +50,20 @@
     <ClInclude Include="..\include\arcsoft_face.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\arcsoft_face_except.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="app_id_and_sdk_key.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\arcsoft-face\except.h">
+      <Filter>头文件\arcsoft-face</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\arcsoft-face\image.h">
+      <Filter>头文件\arcsoft-face</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\arcsoft-face\face_info.h">
+      <Filter>头文件\arcsoft-face</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\arcsoft-face\rect.h">
+      <Filter>头文件\arcsoft-face</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

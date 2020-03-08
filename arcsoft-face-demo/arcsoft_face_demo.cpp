@@ -2,7 +2,6 @@
 #include "pch.h"
 
 #include <arcsoft_face.h>
-#include <arcsoft_face_except.h>
 
 #include "app_id_and_sdk_key.h"
      
@@ -10,12 +9,25 @@ int main()
 {
     using namespace tz::ai::arcsoft;
 
-    auto && face = Face(Face::Mode::Image);
-    moutln(face.description());
+#define TRY 0
+#if TRY
+    try
+#endif  // TRY
+    {
+        Face::appID(APP_ID);
+        Face::sdkKey(SDK_KEY);
 
-    Face::appID(APP_ID);
-    Face::sdkKey(SDK_KEY);
-    Face::activate();
+        auto && face = Face(Face::Mode::Image);
+        moutln(face.description());
+
+        Face::activate();
+    }
+#if TRY
+    catch (std::exception const & e)
+    {
+        moutln(e.what());
+    }
+#endif  // TRY
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

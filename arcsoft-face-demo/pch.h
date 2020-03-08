@@ -16,6 +16,10 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <cassert>
+#include <cstdint>
+#include <vector>
+#include <array>
 #pragma warning(pop)
 
 #define mout(args) std::cout << args
