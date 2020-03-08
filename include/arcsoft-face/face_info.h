@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
 #include "rect.h"
 
@@ -31,5 +32,7 @@ private:
     Rect rect_;
     Direction dire_;    // 人脸在图片中大致方向
 };
+
+using MultiFaceInfo = std::vector<FaceInfo>;
 
 }   // namespace tz::ai::arcsoft

@@ -41,7 +41,6 @@ public:
 	using ScaleType = int32_t;
 	using MaxNumType = int32_t;
 	enum class Mask { Detect = 0x1, Feature = 0x4, Age = 0x8, Gender = 0x10, Angle = 0x20, Liveness = 0x80, IRLiveness = 0x400 };
-	using MultiFaceInfo = std::vector<FaceInfo>;
 	using Feature = std::vector<uint8_t>;
 private:
 #pragma warning(push)
