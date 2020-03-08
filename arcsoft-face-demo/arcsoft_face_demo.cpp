@@ -14,13 +14,13 @@ int main()
     try
 #endif  // TRY
     {
-        Face::appID(APP_ID);
-        Face::sdkKey(SDK_KEY);
+        FaceEngine::appID(APP_ID);
+        FaceEngine::sdkKey(SDK_KEY);
 
-        auto && face = Face(Face::Mode::Image);
+        auto && face = FaceEngine(FaceEngine::Mode::Image);
         moutln(face.description());
 
-        Face::activate();
+        FaceEngine::activate();
     }
 #if TRY
     catch (std::exception const & e)

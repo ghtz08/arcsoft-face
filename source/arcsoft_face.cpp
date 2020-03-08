@@ -18,23 +18,23 @@ namespace tz::ai::arcsoft
 inline namespace thread_unsafety
 {
 
-std::string Face::app_id_;
-std::string Face::sdk_key_;
+std::string FaceEngine::app_id_;
+std::string FaceEngine::sdk_key_;
 
-auto Face::description
+auto FaceEngine::description
 () noexcept -> Description
 {
-    static_assert(sizeof(Face::Description) == sizeof(ASF_VERSION));
+    static_assert(sizeof(FaceEngine::Description) == sizeof(ASF_VERSION));
 
     auto && desc = ASFGetVersion();
     return { desc.Version, desc.BuildDate, desc.CopyRight };
 }
 
-auto Face::activate() -> void
+auto FaceEngine::activate() -> void
 {
     auto const res = ASFOnlineActivation(
-        const_cast<char *>(Face::app_id_.data()),
-        const_cast<char *>(Face::sdk_key_.data())
+        const_cast<char *>(FaceEngine::app_id_.data()),
+        const_cast<char *>(FaceEngine::sdk_key_.data())
     );
     if (res != MOK && res != MERR_ASF_ALREADY_ACTIVATED)
     {
@@ -42,18 +42,18 @@ auto Face::activate() -> void
     }
 }
 
-auto Face::activate
+auto FaceEngine::activate
 (
     std::string app_id,
     std::string sdk_key
 ) -> void
 {
-    Face::app_id_ = std::move(app_id);
-    Face::sdk_key_ = std::move(sdk_key);
-    Face::activate();
+    FaceEngine::app_id_ = std::move(app_id);
+    FaceEngine::sdk_key_ = std::move(sdk_key);
+    FaceEngine::activate();
 }
 
-Face::Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, int32_t mask)
+FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, int32_t mask)
 {
     static_assert(static_cast<ASF_DetectMode>(Mode::Image) == ASF_DETECT_MODE_IMAGE);
     static_assert(static_cast<ASF_DetectMode>(Mode::Video) == ASF_DETECT_MODE_VIDEO);
@@ -77,7 +77,7 @@ Face::Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, int32
     
     {
         // TODO: 先直接初始化，失败再激活
-        Face::activate();
+        FaceEngine::activate();
         auto const res = ASFInitEngine(
             static_cast<ASF_DetectMode>(mode),
             static_cast<ASF_OrientPriority>(dire),
@@ -93,17 +93,17 @@ Face::Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, int32
     }
 }
 
-Face::Face(Mode mode)
-    :Face(
+FaceEngine::FaceEngine(Mode mode)
+    :FaceEngine(
         mode,
         Direction::Up,
         mode == Mode::Video? 16: 32,
         25,
-        Face::all_mask_
+        FaceEngine::all_mask_
     )
 { }
 
-Face::~Face()
+FaceEngine::~FaceEngine()
 {
     ASFUninitEngine(handle_);
 }
@@ -111,12 +111,12 @@ Face::~Face()
 auto operator <<
 (
     std::ostream & out,
-    Face::Description const & desc
+    FaceEngine::Description const & desc
 ) -> std::ostream &
 {
 #define TO_STRING(str) #str
 #define OUTPUT(member) #member "=" << desc.member
-    return out << TO_STRING(Face::Description) "("
+    return out << TO_STRING(FaceEngine::Description) "("
         OUTPUT(version) << ","
         OUTPUT(build_date) << ","
         OUTPUT(copyright) << ""
@@ -125,7 +125,7 @@ auto operator <<
 #undef OUTPUT
 }
 
-auto Face::detectFaces(
+auto FaceEngine::detectFaces(
     Image const & image
 ) -> MultiFaceInfo
 {
@@ -192,7 +192,7 @@ auto ASFSingleFaceInfoFromFaceInfo(
 
 }   // namespace
 
-auto Face::extractFeature(
+auto FaceEngine::extractFeature(
     Image const & image,
     FaceInfo const & face_info
 ) -> Feature
@@ -226,7 +226,7 @@ namespace
 {
 
 auto ASFFeatureFromFeature(
-    Face::Feature const & feat
+    FaceEngine::Feature const & feat
 ) -> ASF_FaceFeature
 {
     auto asf_feat = ASF_FaceFeature();
@@ -239,16 +239,16 @@ auto ASFFeatureFromFeature(
 
 }   // namespace
 
-auto Face::compareFeature(Feature const & feat1, Feature const & feat2) -> float
+auto FaceEngine::compareFeature(Feature const & feat1, Feature const & feat2) -> float
 {
     auto asf_feat1 = ASFFeatureFromFeature(feat1);
     auto asf_feat2 = ASFFeatureFromFeature(feat2);
-    auto level = 0.0f;
+    auto similarity = 0.0f;
     auto const res = ASFFaceFeatureCompare(
         handle_,
         &asf_feat1,
         &asf_feat2,
-        &level,
+        &similarity,
         ASF_LIFE_PHOTO  // or ASF_ID_PHOTO
     );
 
@@ -257,9 +257,9 @@ auto Face::compareFeature(Feature const & feat1, Feature const & feat2) -> float
         throw FaceError::make(res);
     }
 
-    assert(0.0f <= level && level <= 1.0f);
+    assert(0.0f <= similarity && similarity <= 1.0f);
 
-    return level;
+    return similarity;
 }
 
 }   // namespace thread_unsafety

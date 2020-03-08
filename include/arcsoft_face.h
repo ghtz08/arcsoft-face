@@ -26,7 +26,7 @@ class Image;
 inline namespace thread_unsafety
 {
 
-class Face
+class FaceEngine
 {
 public:
 	using Literal = char const *;
@@ -54,21 +54,21 @@ private:
 	};
 #pragma warning(pop)
 public:
-	Face(Mode mode);
-	~Face();
+	FaceEngine(Mode mode);
+	~FaceEngine();
 public:
 	auto detectFaces(Image const & image) -> MultiFaceInfo;
 	auto extractFeature(Image const & image, FaceInfo const & face_info) -> Feature;
 	auto compareFeature(Feature const & feat1, Feature const & feat2) -> float;
 private:
-	Face(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_::Value mask);
+	FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_::Value mask);
 public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
-	static auto appID() noexcept -> std::string const & { return Face::app_id_; }
-	static auto appID(std::string app_id) -> void { Face::app_id_ = std::move(app_id); }
-	static auto sdkKey() noexcept -> std::string const & { return Face::sdk_key_; }
-	static auto sdkKey(std::string sdk_key) -> void { Face::sdk_key_ = std::move(sdk_key); }
+	static auto appID() noexcept -> std::string const & { return FaceEngine::app_id_; }
+	static auto appID(std::string app_id) -> void { FaceEngine::app_id_ = std::move(app_id); }
+	static auto sdkKey() noexcept -> std::string const & { return FaceEngine::sdk_key_; }
+	static auto sdkKey(std::string sdk_key) -> void { FaceEngine::sdk_key_ = std::move(sdk_key); }
 #pragma warning(pop)
 	/* 获取版本、构建日期、版权等信息
 	 */
@@ -99,14 +99,14 @@ private:
 	0;
 };
 
-auto operator << (std::ostream & out, Face::Description const & desc) -> std::ostream &;
+auto operator << (std::ostream & out, FaceEngine::Description const & desc) -> std::ostream &;
 
 }   // namespace thread_unsafety
 
 namespace thread_safety
 {
 
-//class Face: thread_unsafety::Face
+//class FaceEngine: thread_unsafety::FaceEngine
 //{
 //public:
 //
