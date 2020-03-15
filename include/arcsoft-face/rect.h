@@ -8,14 +8,15 @@ namespace tz::ai::arcsoft
 
 class Rect
 {
-public:
-    Rect() = default;
-    Rect(int x, int y, int w, int h);
-    Rect(MRECT const &);
-public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
+public:
+    Rect() = default;
+    Rect(int w, int h): Rect(0, 0, w, h) {}
+    Rect(int x, int y, int w, int h) : x_(x), y_(y), w_(w), h_(h) {}
+    Rect(MRECT const &);
 
+public:
     auto x() const      noexcept -> int  { return x_; }
     auto x(int x)       noexcept -> void { x_ = x; }
     auto y() const      noexcept -> int  { return y_; }
@@ -36,6 +37,7 @@ public:
     auto vaild() const noexcept -> bool { return 0 <= x_ && 0 <= y_ && 0 < w_ && 0 < h_; }
 
 #pragma warning(pop)
+
 private:
     int x_ = 0;
     int y_ = 0;
