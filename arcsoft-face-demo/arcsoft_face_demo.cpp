@@ -1,9 +1,20 @@
 // arcsoft-face-demo.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
-#include "pch.h"
+#pragma warning(push, 1)
+#pragma warning(disable: 4365)  // “参数”: 从“long”转换到“unsigned int”，有符号/无符号不匹配
+#pragma warning(disable: 4514)  // 未引用的内联函数已移除
+#pragma warning(disable: 4668)  // 没有定义预处理器宏，用“0”替换“#if/#elif”
+#pragma warning(disable: 4710)  // 函数未内联
+
+#include <iostream>
+
+#pragma warning(pop)
 
 #include <arcsoft_face.h>
 
 #include "app_id_and_sdk_key.h"
+
+#define mout(args) std::cout << args
+#define moutln(args) std::cout << args << " [" << __LINE__ << "]\n"
      
 int main()
 {

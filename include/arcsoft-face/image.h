@@ -31,6 +31,7 @@ private:
 	int height_;
 	Data data_ = nullptr;
 	Format format_ = Format::B8G8R8;
+	int reserve_ = 0;	// 手动对齐
 };
 
 }   // namespace tz::ai::arcsoft
