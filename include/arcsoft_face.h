@@ -62,8 +62,8 @@ private:
 #pragma warning(pop)
 public:
 	FaceEngine(Mode mode);
-	FaceEngine(Mode mode, Mask_::Value mask);
-	FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_::Value mask);
+	FaceEngine(Mode mode, Mask_ mask);
+	FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_ mask);
 	~FaceEngine();
 public:
 	auto detectFaces(Image const & image) -> MultiFaceInfo;

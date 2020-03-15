@@ -53,7 +53,7 @@ auto FaceEngine::activate
     FaceEngine::activate();
 }
 
-FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, int32_t mask)
+FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_ mask)
 {
     static_assert(static_cast<ASF_DetectMode>(Mode::Image) == ASF_DETECT_MODE_IMAGE);
     static_assert(static_cast<ASF_DetectMode>(Mode::Video) == ASF_DETECT_MODE_VIDEO);
@@ -66,6 +66,7 @@ FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType ma
 
     static_assert(std::is_same_v<ScaleType, MInt32>);
     static_assert(std::is_same_v<MaxNumType, MInt32>);
+    static_assert(std::is_same_v<Mask_::Value, MInt32>);
 
     static_assert(static_cast<int>(Mask::Detect) == ASF_FACE_DETECT);
     static_assert(static_cast<int>(Mask::Feature) == ASF_FACERECOGNITION);
@@ -74,7 +75,9 @@ FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType ma
     static_assert(static_cast<int>(Mask::Angle) == ASF_FACE3DANGLE);
     static_assert(static_cast<int>(Mask::Liveness) == ASF_LIVENESS);
     static_assert(static_cast<int>(Mask::IRLiveness) == ASF_IR_LIVENESS);
-    
+
+    assert((mask.value() & (~(ASF_FACE_DETECT | ASF_FACERECOGNITION | ASF_AGE | ASF_GENDER | ASF_FACE3DANGLE | ASF_LIVENESS | ASF_IR_LIVENESS))) == 0);
+
     {
         // TODO: 先直接初始化，失败再激活
         FaceEngine::activate();
@@ -83,7 +86,7 @@ FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType ma
             static_cast<ASF_OrientPriority>(dire),
             scale,
             max_num,
-            mask,
+            mask.value(),
             &handle_
         );
         if (res != MOK)
@@ -103,7 +106,7 @@ FaceEngine::FaceEngine(Mode mode)
     )
 { }
 
-FaceEngine::FaceEngine(Mode mode, Mask_::Value mask)
+FaceEngine::FaceEngine(Mode mode, Mask_ mask)
     : FaceEngine(
         mode,
         Direction::Up,
