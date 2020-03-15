@@ -26,6 +26,8 @@ public:
     //auto left(int x) noexcept -> void { x_ = x; }
     auto right() const noexcept -> int { return x_ + w_ - 1; }
 
+    auto vaild() const noexcept -> bool { return 0 <= x_ && 0 <= y_ && 0 < w_ && 0 < h_; }
+
 #pragma warning(pop)
 private:
     int x_ = 0;
