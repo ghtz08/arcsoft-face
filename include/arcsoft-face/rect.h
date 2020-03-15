@@ -16,6 +16,10 @@ public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
 
+    auto x() const noexcept -> int { return x_; }
+    auto y() const noexcept -> int { return y_; }
+    auto width() const noexcept -> int { return w_; }
+    auto height() const noexcept -> int { return h_; }
     auto top() const noexcept -> int { return y_; }
     auto bottom() const noexcept -> int { return y_ + w_ - 1; }
     auto left() const noexcept -> int { return x_; }
