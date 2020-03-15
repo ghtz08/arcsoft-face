@@ -94,7 +94,7 @@ FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType ma
 }
 
 FaceEngine::FaceEngine(Mode mode)
-    :FaceEngine(
+    : FaceEngine(
         mode,
         Direction::Up,
         mode == Mode::Video? 16: 32,
@@ -102,6 +102,18 @@ FaceEngine::FaceEngine(Mode mode)
         FaceEngine::all_mask_
     )
 { }
+
+FaceEngine::FaceEngine(Mode mode, Mask_::Value mask)
+    : FaceEngine(
+        mode,
+        Direction::Up,
+        mode == Mode::Video? 16: 32,
+        25,
+        mask
+    )
+{
+
+}
 
 FaceEngine::~FaceEngine()
 {

@@ -45,22 +45,29 @@ public:
 private:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
-	struct Mask_
+	class Mask_ final
 	{
+	public:
 		using Value = int32_t;
-		Mask_(Mask mask) : value(static_cast<Value>(mask)) {}
-		Value value;
+	public:
+		constexpr Mask_(Value v): value_(v) {}
+		constexpr Mask_(Mask mask) : value_(static_cast<Value>(mask)) {}
+	public:
+		auto value() const noexcept -> Value { return value_; }
+		friend constexpr auto operator|(Mask_ m1, Mask_ m2) -> Mask_ { return m1.value_ | m2.value_; }
+	private:
+		Value value_;
 	};
 #pragma warning(pop)
 public:
 	FaceEngine(Mode mode);
+	FaceEngine(Mode mode, Mask_::Value mask);
+	FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_::Value mask);
 	~FaceEngine();
 public:
 	auto detectFaces(Image const & image) -> MultiFaceInfo;
 	auto extractFeature(Image const & image, FaceInfo const & face_info) -> Feature;
 	auto compareFeature(Feature const & feat1, Feature const & feat2) -> float;
-private:
-	FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_::Value mask);
 public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
