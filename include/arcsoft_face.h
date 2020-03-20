@@ -107,15 +107,15 @@ private:
 private:
 	static std::string app_id_;
 	static std::string sdk_key_;
-	static constexpr auto all_mask_ =
-		static_cast<Mask_::Value>(Mask::Detect) |
-		static_cast<Mask_::Value>(Mask::Feature) |
-		static_cast<Mask_::Value>(Mask::Age) |
-		static_cast<Mask_::Value>(Mask::Gender) |
-		static_cast<Mask_::Value>(Mask::Angle) |
-		static_cast<Mask_::Value>(Mask::Liveness) |
-		static_cast<Mask_::Value>(Mask::IRLiveness) |
-	0;
+	static constexpr auto all_mask_ = 0
+		| static_cast<Mask_::Value>(Mask::Detect)
+		| static_cast<Mask_::Value>(Mask::Feature)
+		| static_cast<Mask_::Value>(Mask::Age)
+		| static_cast<Mask_::Value>(Mask::Gender)
+		| static_cast<Mask_::Value>(Mask::Angle)
+		| static_cast<Mask_::Value>(Mask::Liveness)
+		| static_cast<Mask_::Value>(Mask::IRLiveness)
+	;
 };
 
 #pragma warning(push)
