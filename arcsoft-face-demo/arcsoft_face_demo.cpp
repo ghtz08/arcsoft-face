@@ -28,7 +28,7 @@ int main()
         FaceEngine::appID(APP_ID);
         FaceEngine::sdkKey(SDK_KEY);
 
-        auto && face = FaceEngine(FaceEngine::Mode::Image);
+        auto && face = FaceEngine(FaceEngine::Mode::Image, FaceEngine::Mask::Detect | FaceEngine::Mask::Angle);
         moutln(face.description());
 
         FaceEngine::activate();

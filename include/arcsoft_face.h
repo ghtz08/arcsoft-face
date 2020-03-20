@@ -43,7 +43,8 @@ public:
 	enum class Mask { Detect = 0x1, Feature = 0x4, Age = 0x8, Gender = 0x10, Angle = 0x20, Liveness = 0x80, IRLiveness = 0x400 };
 	using MultiFaceInfo = std::vector<FaceInfo>;
 	using Feature = std::vector<uint8_t>;
-private:
+
+public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
 	class Mask_ final
@@ -106,7 +107,15 @@ private:
 	0;
 };
 
-auto operator << (std::ostream & out, FaceEngine::Description const & desc) -> std::ostream &;
+#pragma warning(push)
+#pragma warning(disable: 4514)	// 未引用的内联函数已移除
+constexpr inline auto operator|(FaceEngine::Mask m1, FaceEngine::Mask m2) ->FaceEngine::Mask_
+{
+	return FaceEngine::Mask_(m1) | FaceEngine::Mask_(m2);
+}
+#pragma warning(pop)
+
+auto operator<<(std::ostream & out, FaceEngine::Description const & desc) -> std::ostream &;
 
 }   // namespace thread_unsafety
 
