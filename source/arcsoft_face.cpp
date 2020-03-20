@@ -120,7 +120,21 @@ FaceEngine::FaceEngine(Mode mode, Mask_ mask)
 
 FaceEngine::~FaceEngine()
 {
-    ASFUninitEngine(handle_);
+    if (handle_) { ASFUninitEngine(handle_); }
+    handle_ = nullptr;
+}
+
+FaceEngine::FaceEngine(FaceEngine && engine)
+    : handle_(engine.handle_)
+{
+    engine.handle_ = nullptr;
+}
+
+auto FaceEngine::operator=(FaceEngine && engine) -> FaceEngine &
+{
+    if (std::addressof(engine) == this) { return *this; }
+    this->~FaceEngine();
+    std::swap(handle_, engine.handle_);
 }
 
 auto operator <<

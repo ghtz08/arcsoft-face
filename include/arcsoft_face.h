@@ -61,15 +61,24 @@ public:
 		Value value_;
 	};
 #pragma warning(pop)
+
 public:
 	FaceEngine(Mode mode);
 	FaceEngine(Mode mode, Mask_ mask);
 	FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_ mask);
+	FaceEngine(FaceEngine const &) = delete;
+	FaceEngine(FaceEngine &&);
 	~FaceEngine();
+
+public:
+	auto operator=(FaceEngine const &) = delete;
+	auto operator=(FaceEngine &&) -> FaceEngine &;
+
 public:
 	auto detectFaces(Image const & image) -> MultiFaceInfo;
 	auto extractFeature(Image const & image, FaceInfo const & face_info) -> Feature;
 	auto compareFeature(Feature const & feat1, Feature const & feat2) -> float;
+
 public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
@@ -91,8 +100,10 @@ public:
 	 * except: 失败抛出 tz::ai::arcsoft::FaceError
 	 */
 	static auto activate(std::string app_id, std::string sdk_key) -> void;
+
 private:
 	void * handle_ = nullptr;
+
 private:
 	static std::string app_id_;
 	static std::string sdk_key_;
