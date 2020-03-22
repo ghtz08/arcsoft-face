@@ -135,6 +135,7 @@ auto FaceEngine::operator=(FaceEngine && engine) -> FaceEngine &
     if (std::addressof(engine) == this) { return *this; }
     this->~FaceEngine();
     std::swap(handle_, engine.handle_);
+    return *this;
 }
 
 auto operator <<

@@ -43,6 +43,7 @@ public:
 	enum class Mask { Detect = 0x1, Feature = 0x4, Age = 0x8, Gender = 0x10, Angle = 0x20, Liveness = 0x80, IRLiveness = 0x400 };
 	using MultiFaceInfo = std::vector<FaceInfo>;
 	using Feature = std::vector<uint8_t>;
+	using FeatureSize = uint32_t;
 
 public:
 #pragma warning(push)
@@ -86,6 +87,7 @@ public:
 	static auto appID(std::string app_id) -> void { FaceEngine::app_id_ = std::move(app_id); }
 	static auto sdkKey() noexcept -> std::string const & { return FaceEngine::sdk_key_; }
 	static auto sdkKey(std::string sdk_key) -> void { FaceEngine::sdk_key_ = std::move(sdk_key); }
+	static constexpr auto featureSize() noexcept -> FeatureSize { return 1032; }
 #pragma warning(pop)
 	/* 获取版本、构建日期、版权等信息
 	 */
