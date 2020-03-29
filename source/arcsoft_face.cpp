@@ -211,7 +211,7 @@ auto MRECTFromRect(
 
 auto ASFSingleFaceInfoFromFaceInfo(
     FaceInfo const & info
-) ->ASF_SingleFaceInfo
+) -> ASF_SingleFaceInfo
 {
     auto asf_sfi = ASF_SingleFaceInfo();
     asf_sfi.faceRect = MRECTFromRect(info.rect());
@@ -282,10 +282,7 @@ auto FaceEngine::compareFeature(Feature const & feat1, Feature const & feat2) ->
         ASF_LIFE_PHOTO  // or ASF_ID_PHOTO
     );
 
-    if (res != MOK)
-    {
-        throw FaceError::make(res);
-    }
+    if (res != MOK) { throw FaceError::make(res); }
 
     assert(0.0f <= similarity && similarity <= 1.0f);
 
