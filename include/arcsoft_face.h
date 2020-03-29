@@ -44,6 +44,7 @@ public:
 	using MultiFaceInfo = std::vector<FaceInfo>;
 	using Feature = std::vector<uint8_t>;
 	using FeatureSize = uint32_t;
+	using Similarity = float;
 
 public:
 #pragma warning(push)
@@ -78,7 +79,7 @@ public:
 public:
 	auto detectFaces(Image const & image) -> MultiFaceInfo;
 	auto extractFeature(Image const & image, FaceInfo const & face_info) -> Feature;
-	auto compareFeature(Feature const & feat1, Feature const & feat2) -> float;
+	auto compareFeature(Feature const & feat1, Feature const & feat2) -> Similarity;
 
 public:
 #pragma warning(push)

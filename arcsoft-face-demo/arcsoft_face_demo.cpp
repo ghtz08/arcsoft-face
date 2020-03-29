@@ -28,10 +28,14 @@ int main()
         FaceEngine::appID(APP_ID);
         FaceEngine::sdkKey(SDK_KEY);
 
-        auto && face = FaceEngine(FaceEngine::Mode::Image, FaceEngine::Mask::Detect | FaceEngine::Mask::Angle);
+        auto && face = FaceEngine(
+            FaceEngine::Mode::Image,
+            FaceEngine::Direction::Up,
+            32,
+            1,
+            FaceEngine::Mask::Feature | FaceEngine::Mask::Detect
+        );
         moutln(face.description());
-
-        FaceEngine::activate();
     }
 #if TRY
     catch (std::exception const & e)
