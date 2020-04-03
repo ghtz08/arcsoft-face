@@ -13,36 +13,40 @@
 
 #include "app_id_and_sdk_key.h"
 
+#if !_DEBUG || 1
+#   define TRY \
+        try {
+#   define CATCH(statement, returen_value)      \
+        } catch (std::exception const & e) {    \
+            statement;                          \
+            return returen_value;               \
+        }
+#else
+#   define TRY
+#   define CATCH
+#endif
+
 #define mout(args) std::cout << args
 #define moutln(args) std::cout << args << " [" << __LINE__ << "]\n"
      
 int main()
 {
+    TRY
     using namespace tz::ai::arcsoft;
 
-#define TRY 0
-#if TRY
-    try
-#endif  // TRY
-    {
-        FaceEngine::appID(APP_ID);
-        FaceEngine::sdkKey(SDK_KEY);
+    FaceEngine::appID(APP_ID);
+    FaceEngine::sdkKey(SDK_KEY);
 
-        auto && face = FaceEngine(
-            FaceEngine::Mode::Image,
-            FaceEngine::Direction::Up,
-            32,
-            1,
-            FaceEngine::Mask::Feature | FaceEngine::Mask::Detect
-        );
-        moutln(face.description());
-    }
-#if TRY
-    catch (std::exception const & e)
-    {
-        moutln(e.what());
-    }
-#endif  // TRY
+    auto && face = FaceEngine(
+        FaceEngine::Mode::Image,
+        FaceEngine::Direction::Up,
+        32,
+        1,
+        FaceEngine::Mask::Feature | FaceEngine::Mask::Detect
+    );
+    moutln(face.description());
+
+    CATCH(std::cout << e.what() << std::endl, 1)
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
