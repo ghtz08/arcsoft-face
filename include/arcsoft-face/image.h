@@ -24,16 +24,17 @@ public:
 
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
+
 public:
-	auto width() const noexcept -> int { return width_; }
-	auto width(int w) noexcept -> void { assert(0 <= w); width_ = w; }
-	auto height() const noexcept -> int { return height_; }
-	auto height(int h) noexcept -> void { assert(0 <= h); height_ = h; }
-	//auto data() noexcept -> Data { return data_; };
-	auto data() const noexcept -> Data { return data_; }
-	auto data(Data data) noexcept -> void { data_ = data; }
-	auto format() const noexcept -> Format { return format_; }
-	auto format(Format format) noexcept -> void { format_ = format; }
+	auto width()  const  noexcept { return width_; }
+	auto width(int w)    noexcept { assert(0 <= w); width_ = w; }
+	auto height() const  noexcept { return height_; }
+	auto height(int h)   noexcept { assert(0 <= h); height_ = h; }
+	auto data()   const  noexcept { return data_; }
+	auto data(Data data) noexcept { data_ = data; }
+	auto format() const  noexcept { return format_; }
+	auto format(Format format) noexcept { format_ = format; }
+
 #pragma warning(pop)
 
 private:
