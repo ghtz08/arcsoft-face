@@ -1,4 +1,4 @@
-#include "arcsoft-face/image.h"
+#include "arcsoft-face/image_ref.h"
 
 namespace tz::ai::arcsoft
 {
