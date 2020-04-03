@@ -55,7 +55,7 @@ auto FaceEngine::activate
 
 FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_ mask)
 {
-    static_assert(static_cast<ASF_DetectMode>(Mode::Image) == ASF_DETECT_MODE_IMAGE);
+    static_assert(static_cast<ASF_DetectMode>(Mode::ImageRef) == ASF_DETECT_MODE_IMAGE);
     static_assert(static_cast<ASF_DetectMode>(Mode::Video) == ASF_DETECT_MODE_VIDEO);
 
     static_assert(static_cast<ASF_OrientPriority>(Direction::Up) == ASF_OP_0_ONLY);
@@ -155,8 +155,11 @@ auto operator <<
 #undef OUTPUT
 }
 
+#pragma warning(push)
+#pragma warning(disable: 5045)  // 如果指定了 /Qspectre 开关，编译器会插入内存负载的 Spectre 缓解
+
 auto FaceEngine::detectFaces(
-    Image const & image
+    ImageRef const & image
 ) -> MultiFaceInfo
 {
     auto asf_mfi = ASF_MultiFaceInfo();
@@ -178,8 +181,6 @@ auto FaceEngine::detectFaces(
     assert(0 <= asf_mfi.faceNum);
     mfi.reserve(static_cast<decltype(mfi)::size_type>(asf_mfi.faceNum));
 
-#pragma warning(push)
-#pragma warning(disable: 5045)  // 如果指定了 /Qspectre 开关，编译器会插入内存负载的 Spectre 缓解
     auto face_id = 0u;
     for (auto i = 0; i < asf_mfi.faceNum; ++i)
     {
@@ -189,9 +190,9 @@ auto FaceEngine::detectFaces(
             asf_mfi.faceOrient[i]
         );
     }
-#pragma warning(pop)
     return mfi;
 }
+#pragma warning(pop)
 
 namespace
 {
@@ -223,7 +224,7 @@ auto ASFSingleFaceInfoFromFaceInfo(
 }   // namespace
 
 auto FaceEngine::extractFeature(
-    Image const & image,
+    ImageRef const & image,
     FaceInfo const & face_info
 ) -> Feature
 {

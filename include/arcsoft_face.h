@@ -21,7 +21,7 @@
 namespace tz::ai::arcsoft
 {
 
-class Image;
+class ImageRef;
 
 inline namespace thread_unsafety
 {
@@ -36,7 +36,7 @@ public:
 		Literal build_date;
 		Literal copyright;
 	};
-	enum class Mode { Video, Image = -1 };
+	enum class Mode { Video, ImageRef = -1 };
 	enum class Direction { Up = 1, Left, Right, Down, All };
 	using ScaleType = int32_t;
 	using MaxNumType = int32_t;
@@ -77,8 +77,8 @@ public:
 	auto operator=(FaceEngine &&) -> FaceEngine &;
 
 public:
-	auto detectFaces(Image const & image) -> MultiFaceInfo;
-	auto extractFeature(Image const & image, FaceInfo const & face_info) -> Feature;
+	auto detectFaces(ImageRef const & image) -> MultiFaceInfo;
+	auto extractFeature(ImageRef const & image, FaceInfo const & face_info) -> Feature;
 	auto compareFeature(Feature const & feat1, Feature const & feat2) -> Similarity;
 
 public:
