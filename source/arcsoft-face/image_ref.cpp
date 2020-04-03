@@ -12,7 +12,7 @@ ImageRef::ImageRef(
 ) noexcept :
     width_(width), height_(height), data_(data), format_(format)
 {
-    if (!data_) { return; }
+    if (!size) { return; }
 
     switch (format)
     {
