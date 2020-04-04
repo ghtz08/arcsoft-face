@@ -17,6 +17,7 @@
 #pragma warning(pop)
 
 #include "arcsoft-face/face_info.h"
+#include "arcsoft-face/image_ref.h"
 
 namespace tz::ai::arcsoft
 {
@@ -69,16 +70,16 @@ public:
 	FaceEngine(Mode mode, Mask_ mask);
 	FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_ mask);
 	FaceEngine(FaceEngine const &) = delete;
-	FaceEngine(FaceEngine &&);
+	FaceEngine(FaceEngine &&) noexcept;
 	~FaceEngine();
 
 public:
 	auto operator=(FaceEngine const &) = delete;
-	auto operator=(FaceEngine &&) -> FaceEngine &;
+	auto operator=(FaceEngine &&) noexcept -> FaceEngine &;
 
 public:
-	auto detectFaces(ImageRef const & image) -> MultiFaceInfo;
-	auto extractFeature(ImageRef const & image, FaceInfo const & face_info) -> Feature;
+	auto detectFaces(ImageRefC const & image) -> MultiFaceInfo;
+	auto extractFeature(ImageRefC const & image, FaceInfo const & face_info) -> Feature;
 	auto compareFeature(Feature const & feat1, Feature const & feat2) -> Similarity;
 
 public:

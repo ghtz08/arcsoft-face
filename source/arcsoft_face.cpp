@@ -124,13 +124,13 @@ FaceEngine::~FaceEngine()
     handle_ = nullptr;
 }
 
-FaceEngine::FaceEngine(FaceEngine && engine)
+FaceEngine::FaceEngine(FaceEngine && engine) noexcept
     : handle_(engine.handle_)
 {
     engine.handle_ = nullptr;
 }
 
-auto FaceEngine::operator=(FaceEngine && engine) -> FaceEngine &
+auto FaceEngine::operator=(FaceEngine && engine) noexcept -> FaceEngine &
 {
     if (std::addressof(engine) == this) { return *this; }
     this->~FaceEngine();
@@ -159,7 +159,7 @@ auto operator <<
 #pragma warning(disable: 5045)  // 如果指定了 /Qspectre 开关，编译器会插入内存负载的 Spectre 缓解
 
 auto FaceEngine::detectFaces(
-    ImageRef const & image
+    ImageRefC const & image
 ) -> MultiFaceInfo
 {
     auto asf_mfi = ASF_MultiFaceInfo();
@@ -224,8 +224,8 @@ auto ASFSingleFaceInfoFromFaceInfo(
 }   // namespace
 
 auto FaceEngine::extractFeature(
-    ImageRef const & image,
-    FaceInfo const & face_info
+    ImageRefC const & image,
+    FaceInfo  const & face_info
 ) -> Feature
 {
     auto asf_sfi = ASFSingleFaceInfoFromFaceInfo(face_info);
