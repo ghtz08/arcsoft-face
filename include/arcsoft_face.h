@@ -36,7 +36,7 @@ public:
 		Literal build_date;
 		Literal copyright;
 	};
-	enum class Mode { Video, ImageRef = -1 };
+	enum class Mode { Video, Image = -1 };
 	enum class Direction { Up = 1, Left, Right, Down, All };
 	using ScaleType = int32_t;
 	using MaxNumType = int32_t;

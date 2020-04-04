@@ -27,9 +27,9 @@ public:
 
 #pragma warning(pop)
 private:
-    FaceID face_id_;
-    Rect rect_;
-    Direction dire_;    // 人脸在图片中大致方向
+    FaceID    face_id_;
+    Rect      rect_   ;
+    Direction dire_   ; // 人脸在图片中大致方向
 };
 
 }   // namespace tz::ai::arcsoft

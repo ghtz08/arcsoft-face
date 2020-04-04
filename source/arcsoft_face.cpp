@@ -55,7 +55,7 @@ auto FaceEngine::activate
 
 FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_ mask)
 {
-    static_assert(static_cast<ASF_DetectMode>(Mode::ImageRef) == ASF_DETECT_MODE_IMAGE);
+    static_assert(static_cast<ASF_DetectMode>(Mode::Image) == ASF_DETECT_MODE_IMAGE);
     static_assert(static_cast<ASF_DetectMode>(Mode::Video) == ASF_DETECT_MODE_VIDEO);
 
     static_assert(static_cast<ASF_OrientPriority>(Direction::Up) == ASF_OP_0_ONLY);
