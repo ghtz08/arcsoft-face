@@ -185,9 +185,9 @@ auto FaceEngine::detectFaces(
     for (auto i = 0; i < asf_mfi.faceNum; ++i)
     {
         mfi.emplace_back(
-            asf_mfi.faceID? asf_mfi.faceID[i]: face_id++,
             asf_mfi.faceRect[i],
-            asf_mfi.faceOrient[i]
+            asf_mfi.faceOrient[i],
+            asf_mfi.faceID? asf_mfi.faceID[i]: face_id++
         );
     }
     return mfi;

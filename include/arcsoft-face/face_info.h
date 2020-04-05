@@ -13,7 +13,7 @@ public:
     using TrackID = uint32_t;
     using Direction = int;
 public:
-    FaceInfo(TrackID face_id, Rect const & rect, Direction dire);
+    FaceInfo(Rect const & rect, Direction dire = 1, TrackID face_id = 0);
 public:
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除
@@ -27,9 +27,9 @@ public:
 
 #pragma warning(pop)
 private:
+    Rect       rect_    ;
+    Direction  dire_    ; // 人脸在图片中大致方向
     TrackID    track_id_;
-    Rect       rect_   ;
-    Direction  dire_   ; // 人脸在图片中大致方向
 };
 
 }   // namespace tz::ai::arcsoft
