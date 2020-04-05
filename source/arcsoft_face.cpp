@@ -15,6 +15,16 @@
 namespace tz::ai::arcsoft
 {
 
+namespace details
+{
+
+auto DestrorSDK::operator()(DestrorSDK * handle) noexcept -> void
+{
+    ASFUninitEngine(handle);
+}
+
+}   // namespace details
+
 inline namespace thread_unsafety
 {
 
@@ -53,7 +63,17 @@ auto FaceEngine::activate
     FaceEngine::activate();
 }
 
-FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType max_num, Mask_ mask)
+FaceEngine::FaceEngine(
+    Mode      mode,
+    Direction direction,
+    Scale     scale,
+    Number    number,
+    MaskCombo mask_combo
+):  mode_(mode),
+    direction_(direction),
+    scale_(scale),
+    number_(number),
+    mask_combo_(mask_combo)
 {
     static_assert(static_cast<ASF_DetectMode>(Mode::Image) == ASF_DETECT_MODE_IMAGE);
     static_assert(static_cast<ASF_DetectMode>(Mode::Video) == ASF_DETECT_MODE_VIDEO);
@@ -64,9 +84,9 @@ FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType ma
     static_assert(static_cast<ASF_OrientPriority>(Direction::Down) == ASF_OP_180_ONLY);
     static_assert(static_cast<ASF_OrientPriority>(Direction::All) == ASF_OP_ALL_OUT);
 
-    static_assert(std::is_same_v<ScaleType, MInt32>);
-    static_assert(std::is_same_v<MaxNumType, MInt32>);
-    static_assert(std::is_same_v<Mask_::Value, MInt32>);
+    static_assert(std::is_same_v<Scale, MInt32>);
+    static_assert(std::is_same_v<Number, MInt32>);
+    static_assert(std::is_same_v<MaskCombo::Value, MInt32>);
 
     static_assert(static_cast<int>(Mask::Detect) == ASF_FACE_DETECT);
     static_assert(static_cast<int>(Mask::Feature) == ASF_FACERECOGNITION);
@@ -76,23 +96,23 @@ FaceEngine::FaceEngine(Mode mode, Direction dire, ScaleType scale, MaxNumType ma
     static_assert(static_cast<int>(Mask::Liveness) == ASF_LIVENESS);
     static_assert(static_cast<int>(Mask::IRLiveness) == ASF_IR_LIVENESS);
 
-    assert((mask.value() & (~(ASF_FACE_DETECT | ASF_FACERECOGNITION | ASF_AGE | ASF_GENDER | ASF_FACE3DANGLE | ASF_LIVENESS | ASF_IR_LIVENESS))) == 0);
+    assert((mask_combo.value() & (~(ASF_FACE_DETECT | ASF_FACERECOGNITION | ASF_AGE | ASF_GENDER | ASF_FACE3DANGLE | ASF_LIVENESS | ASF_IR_LIVENESS))) == 0);
 
     {
         // TODO: 先直接初始化，失败再激活
         FaceEngine::activate();
+        auto handle = MHandle(nullptr);
         auto const res = ASFInitEngine(
             static_cast<ASF_DetectMode>(mode),
-            static_cast<ASF_OrientPriority>(dire),
+            static_cast<ASF_OrientPriority>(direction),
             scale,
-            max_num,
-            mask.value(),
-            &handle_
+            number,
+            mask_combo.value(),
+            &handle
         );
-        if (res != MOK)
-        {
-            throw FaceError::make(res);
-        }
+        if (res != MOK) { throw FaceError::make(res); }
+        
+        handle_.reset(static_cast<Handle::pointer>(handle));
     }
 }
 
@@ -106,7 +126,7 @@ FaceEngine::FaceEngine(Mode mode)
     )
 { }
 
-FaceEngine::FaceEngine(Mode mode, Mask_ mask)
+FaceEngine::FaceEngine(Mode mode, MaskCombo mask)
     : FaceEngine(
         mode,
         Direction::Up,
@@ -116,26 +136,6 @@ FaceEngine::FaceEngine(Mode mode, Mask_ mask)
     )
 {
 
-}
-
-FaceEngine::~FaceEngine()
-{
-    if (handle_) { ASFUninitEngine(handle_); }
-    handle_ = nullptr;
-}
-
-FaceEngine::FaceEngine(FaceEngine && engine) noexcept
-    : handle_(engine.handle_)
-{
-    engine.handle_ = nullptr;
-}
-
-auto FaceEngine::operator=(FaceEngine && engine) noexcept -> FaceEngine &
-{
-    if (std::addressof(engine) == this) { return *this; }
-    this->~FaceEngine();
-    std::swap(handle_, engine.handle_);
-    return *this;
 }
 
 auto operator <<
@@ -165,7 +165,7 @@ auto FaceEngine::detectFaces(
     auto asf_mfi = ASF_MultiFaceInfo();
 
     auto const res = ASFDetectFaces(
-        handle_,
+        handle_.get(),
         image.width(),
         image.height(),
         static_cast<MInt32>(image.format()),
@@ -231,7 +231,7 @@ auto FaceEngine::extractFeature(
     auto asf_sfi = ASFSingleFaceInfoFromFaceInfo(face_info);
     auto asf_feat = ASF_FaceFeature();
     auto const res = ASFFaceFeatureExtract(
-        handle_,
+        handle_.get(),
         image.width(),
         image.height(),
         static_cast<MInt32>(image.format()),
@@ -276,7 +276,7 @@ auto FaceEngine::compareFeature(Feature const & feat1, Feature const & feat2) ->
     auto asf_feat2 = ASFFeatureFromFeature(feat2);
     auto similarity = 0.0f;
     auto const res = ASFFaceFeatureCompare(
-        handle_,
+        handle_.get(),
         &asf_feat1,
         &asf_feat2,
         &similarity,
