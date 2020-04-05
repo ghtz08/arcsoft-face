@@ -4,10 +4,10 @@ namespace tz::ai::arcsoft
 {
 
 FaceInfo::FaceInfo(
-    FaceID face_id,
+    TrackID face_id,
     Rect const & rect,
     Direction dire
-): face_id_(face_id), rect_(rect), dire_(dire)
+): track_id_(face_id), rect_(rect), dire_(dire)
 {
 }
 

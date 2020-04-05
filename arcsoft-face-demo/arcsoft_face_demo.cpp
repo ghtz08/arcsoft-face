@@ -38,7 +38,7 @@ int main()
     FaceEngine::sdkKey(SDK_KEY);
 
     auto && face = FaceEngine(
-        FaceEngine::Mode::ImageRef,
+        FaceEngine::Mode::Image,
         FaceEngine::Direction::Up,
         32,
         1,
