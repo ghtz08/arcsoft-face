@@ -168,7 +168,7 @@ auto FaceEngine::detectFaces(
         handle_,
         image.width(),
         image.height(),
-        ASVL_PAF_RGB24_B8G8R8,  // TODO: 先用缺省的，后面慢慢增加
+        static_cast<MInt32>(image.format()),
         const_cast<MUInt8 *>(image.data()),
         &asf_mfi
     );
@@ -234,7 +234,7 @@ auto FaceEngine::extractFeature(
         handle_,
         image.width(),
         image.height(),
-        ASVL_PAF_RGB24_B8G8R8,
+        static_cast<MInt32>(image.format()),
         const_cast<MUInt8 *>(image.data()),
         &asf_sfi,
         &asf_feat
