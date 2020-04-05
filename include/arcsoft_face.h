@@ -78,8 +78,8 @@ public:
 	auto operator=(FaceEngine &&) noexcept -> FaceEngine &;
 
 public:
-	auto detectFaces(ImageRefC const & image) -> MultiFaceInfo;
-	auto extractFeature(ImageRefC const & image, FaceInfo const & face_info) -> Feature;
+	auto detectFaces(ImageRef const & image) -> MultiFaceInfo;
+	auto extractFeature(ImageRef const & image, FaceInfo const & face_info) -> Feature;
 	auto compareFeature(Feature const & feat1, Feature const & feat2) -> Similarity;
 
 public:

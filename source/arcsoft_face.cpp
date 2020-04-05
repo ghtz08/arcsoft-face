@@ -159,7 +159,7 @@ auto operator <<
 #pragma warning(disable: 5045)  // 如果指定了 /Qspectre 开关，编译器会插入内存负载的 Spectre 缓解
 
 auto FaceEngine::detectFaces(
-    ImageRefC const & image
+    ImageRef const & image
 ) -> MultiFaceInfo
 {
     auto asf_mfi = ASF_MultiFaceInfo();
@@ -224,7 +224,7 @@ auto ASFSingleFaceInfoFromFaceInfo(
 }   // namespace
 
 auto FaceEngine::extractFeature(
-    ImageRefC const & image,
+    ImageRef const & image,
     FaceInfo  const & face_info
 ) -> Feature
 {
