@@ -60,7 +60,7 @@ public:
 	using Similarity = float;
 
 private:
-    using Handle = std::unique_ptr<details::DestrorSDK>;
+    using Handle = std::unique_ptr<details::DestrorSDK, details::DestrorSDK>;
 
 public:
 #pragma warning(push)
