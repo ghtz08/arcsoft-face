@@ -17,24 +17,25 @@ public:
     Rect(MRECT const &);
 
 public:
-    auto x() const      noexcept -> int  { return x_; }
-    auto x(int x)       noexcept -> void { x_ = x; }
-    auto y() const      noexcept -> int  { return y_; }
-    auto y(int y)       noexcept -> void { y_ = y; }
-    auto width() const  noexcept -> int  { return w_; }
-    auto widht(int w)   noexcept -> void { w_ = w; }
-    auto height() const noexcept -> int  { return h_; }
-    auto height(int h)  noexcept -> void { h_ = h; }
-    auto top() const    noexcept -> int  { return y_; }
-    auto top(int t)     noexcept -> void { y_ = t; }
-    auto bottom() const noexcept -> int  { return y_ + h_ - 1; }
-    auto bottom(int b)  noexcept -> void { h_ = b - y_ + 1; }
-    auto left() const   noexcept -> int  { return x_; }
-    auto left(int x)    noexcept -> void { x_ = x; }
-    auto right() const  noexcept -> int  { return x_ + w_ - 1; }
-    auto right(int r)   noexcept -> void { w_ = r - x_ + 1; }
+    auto x()      const noexcept { return x_; }
+    auto x(int x)       noexcept { x_ = x; }
+    auto y()      const noexcept { return y_; }
+    auto y(int y)       noexcept { y_ = y; }
+    auto width()  const noexcept { return w_; }
+    auto widht(int w)   noexcept { w_ = w; }
+    auto height() const noexcept { return h_; }
+    auto height(int h)  noexcept { h_ = h; }
+    auto top() const    noexcept { return y_; }
+    auto top(int t)     noexcept { y_ = t; }
+    auto bottom() const noexcept { return y_ + h_ - 1; }
+    auto bottom(int b)  noexcept { h_ = b - y_ + 1; }
+    auto left()   const noexcept { return x_; }
+    auto left(int x)    noexcept { x_ = x; }
+    auto right()  const noexcept { return x_ + w_ - 1; }
+    auto right(int r)   noexcept { w_ = r - x_ + 1; }
 
-    auto vaild() const noexcept -> bool { return 0 <= x_ && 0 <= y_ && 0 < w_ && 0 < h_; }
+    auto vaild()  const noexcept { return 0 <= x_ && 0 <= y_ && 0 < w_ && 0 < h_; }
+    auto area()   const noexcept { return w_ * h_; }
 
 #pragma warning(pop)
 
