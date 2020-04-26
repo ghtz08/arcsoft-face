@@ -14,6 +14,7 @@
 #include <vector>
 #include <array>
 #include <memory>
+#include <optional>
 
 #pragma warning(pop)
 
@@ -96,6 +97,10 @@ public:
 	auto detectFaces(ImageRef const & image) -> MultiFaceInfo;
 	auto extractFeature(ImageRef const & image, FaceInfo const & face_info) -> Feature;
 	auto compareFeature(Feature const & feat1, Feature const & feat2) -> Similarity;
+    auto detectLiveness(ImageRef const & image, FaceInfo const & face_info) -> std::optional<bool>;
+
+private:
+    auto process(ImageRef const & image, FaceInfo const & face_info, Mask mask) -> bool;
 
 #pragma warning(push)
 #pragma warning(disable: 4514)	// 未引用的内联函数已移除

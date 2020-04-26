@@ -290,6 +290,56 @@ auto FaceEngine::compareFeature(Feature const & feat1, Feature const & feat2) ->
     return similarity;
 }
 
+auto FaceEngine::process(
+    ImageRef const & image,
+    FaceInfo const & face_info,
+    Mask const mask
+) -> bool
+{
+    assert(mask == Mask::Age || mask == Mask::Gender || mask == Mask::Angle || mask == Mask::Liveness);
+
+    auto face_id = face_info.trackID();
+    auto face_rect = MRECTFromRect(face_info.rect());
+    auto face_orient = face_info.direction();
+
+    auto asf_mfi = ASF_MultiFaceInfo();
+    asf_mfi.faceID = reinterpret_cast<MInt32 *>(&face_id);
+    asf_mfi.faceRect = &face_rect;
+    asf_mfi.faceOrient = &face_orient;
+    asf_mfi.faceNum = 1;
+
+    auto asf_feat = ASF_FaceFeature();
+    auto const res = ASFProcess(
+        handle_.get(),
+        image.width(),
+        image.height(),
+        static_cast<MInt32>(image.format()),
+        const_cast<MUInt8 *>(image.data()),
+        &asf_mfi,
+        static_cast<int>(mask)
+    );
+
+    if (res != MOK) { throw FaceError::make(res); }
+
+    return true;
+}
+
+auto FaceEngine::detectLiveness(ImageRef const & image, FaceInfo const & face_info) -> std::optional<bool>
+{
+    if (!this->process(image, face_info, Mask::Liveness)) { return {}; }
+    auto asf_li = ASF_LivenessInfo();
+    auto const err = ASFGetLivenessScore(handle_.get(), &asf_li);
+
+    if (err != MOK) { throw FaceError::make(err); }
+
+    assert(asf_li.num == 1);
+    if (asf_li.num != 1) { return {}; }
+    auto const liveness = asf_li.isLive[0];
+    assert(-2 <= liveness && liveness <= 1);
+    if (liveness < 0 || 1 < liveness) { return {}; }
+    return { liveness == 1 };
+}
+
 }   // namespace thread_unsafety
 
 namespace thread_safety
