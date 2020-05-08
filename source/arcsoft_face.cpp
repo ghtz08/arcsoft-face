@@ -319,9 +319,10 @@ auto FaceEngine::process(
         static_cast<int>(mask)
     );
 
-    if (res != MOK) { throw FaceError::make(res); }
+    if (res == MOK) { return true; }
+    if (res == MERR_FSDK_FACEFEATURE_LOW_CONFIDENCE_LEVEL) { return false; }
 
-    return true;
+    throw FaceError::make(res);
 }
 
 auto FaceEngine::detectLiveness(ImageRef const & image, FaceInfo const & face_info) -> std::optional<bool>
@@ -335,7 +336,7 @@ auto FaceEngine::detectLiveness(ImageRef const & image, FaceInfo const & face_in
     assert(asf_li.num == 1);
     if (asf_li.num != 1) { return {}; }
     auto const liveness = asf_li.isLive[0];
-    assert(-2 <= liveness && liveness <= 1);
+    //assert((-2 <= liveness && liveness <= 1) || liveness == -4 || liveness == -5);
     if (liveness < 0 || 1 < liveness) { return {}; }
     return { liveness == 1 };
 }
