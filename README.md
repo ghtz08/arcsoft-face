@@ -1,13 +1,66 @@
-# Arcsoft Face
+# 虹软公司的人脸识别的接口的二次封装
 
 [![GitHub issues](https://img.shields.io/github/issues/ghtz08/arcsoft-face?style=flat-square)](https://github.com/ghtz08/arcsoft-face/issues)
 [![GitHub forks](https://img.shields.io/github/forks/ghtz08/arcsoft-face?style=flat-square)](https://github.com/ghtz08/arcsoft-face/network)
 [![GitHub stars](https://img.shields.io/github/stars/ghtz08/arcsoft-face)](https://github.com/ghtz08/arcsoft-face/stargazers)
 
-对 ArcSoft 公司提供的 ArcFace 使用 C++ 进行简单的封装，并提供线程安全的接口
+对 ArcSoft 公司提供的 ArcFace 使用 C++ 进行简单的封装，并提供线程安全的接口。
 
 ## 待改进
 
-- [ ] 人脸角度的封装。
-- [ ] 单人脸可以直接转为 SDK 的多人脸。
-- [ ] 多人脸直接封装为一个类，而不是用 vector 包装，内部依然和 ASF_MultiFaceInfo 采用相同的实现以免可以快速的转换到 ASF_MultiFaceInfo，通过提供遍历单个人脸的所有信息以及每个人脸的每一个信息。
+> 所有的自定义结构体都应该支持 I/O 流输出。
+> 这可以通过重载操作符 << 来实现。
+
+- ASF_VERSION
+  - Version: 可以分别访问以小数点分割的小版本号
+  - BuildDate: 可格式化输出、可直接返回纪元时
+  - CopyRight: std::string_view
+- ASF_ActiveFileInfo
+  - startTime: 可格式化输出、可直接得到纪元时
+  - endTime: 可格式化输出、可直接得到纪元时
+  - activeKey: std::string_view
+  - platform: 不同平台不同枚举
+  - sdkType: **待观察**
+  - appId: std::string_view
+  - sdkKey: std::string_view
+  - sdkVersion: 可以分别访问以小数点分割的小版本号
+  - fileVersion: 可以分别访问以小数点分割的小版本号
+- MRECT
+  - 从 x, y, w, h 构造
+  - 支持访问各个点
+  - 支持在大矩形中旋转
+- FaceOrient --> Angle
+  - 对角度进行有效性检查
+- ASF_SingleFaceInfo
+  - 可转为 ASF_MultiFaceInfo
+- ASF_MultiFaceInfo
+  - 直接封装为一个类，内部依然和 ASF_MultiFaceInfo 采用相同的布局以便快速转换到 ASF_MultiFaceInfo
+  - 提供遍历单人脸的 for each
+- ASF_FaceFeature
+  - 内部不保存特征值
+  - 使用值语义
+- ASF_AgeInfo
+  - 类似与 Option，但对值有更严格的校验
+- ASF_GenderInfo
+  - 类似于 Option，但对值有更严格的校验
+- ASF_Face3DAngle
+  - 类似于 Option，但对值有更严格的校验
+- ASF_LivenessInfo
+  - 类似于 Option，但对值有更严格的校验
+- ASF_LivenessThreshold
+  - 不封装，在相应的接口里实现
+- ASVLOFFSCREEN
+  - 仅保留图像数据的常量引用，不保存数据
+  - 内置了图像格式
+- enum ASF_DetectMode
+  - enum class
+- enum ArcSoftFace_OrientPriority 和 enum ArcSoftFace_OrientCode
+  - 使用 Angle
+- enum ASF_DetectModel
+  - 不提供
+- enum ASF_CompareModel
+  - 直接在人脸比对时提供两个接口
+
+> 提示
+> 时间的封装存在 3 冗余
+> 版本号的封装存在 3 冗余
