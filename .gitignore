@@ -7,4 +7,5 @@
 /*/x64/
 *.vcxproj.user
 *.dat
+*.zip
 *.sw?
