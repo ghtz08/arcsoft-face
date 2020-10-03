@@ -1,7 +1,7 @@
 #pragma once
 
 struct __tag_rect;
-typedef __tag_rect MRECT;
+using MRECT = __tag_rect;
 
 namespace tz::ai::arcsoft
 {

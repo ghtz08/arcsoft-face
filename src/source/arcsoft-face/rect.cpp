@@ -18,8 +18,6 @@ Rect::Rect(MRECT const & rect)
         rect.right - rect.left + 1,
         rect.bottom - rect.top + 1
     )
-{
-
-}
+{}
 
 }   // namespace tz::ai::arcsoft
