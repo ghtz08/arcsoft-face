@@ -1,8 +1,9 @@
 # 虹软公司的人脸识别 SDK 的接口的二次封装
 
-[![GitHub issues](https://img.shields.io/github/issues/ghtz08/arcsoft-face?style=flat-square)](https://github.com/ghtz08/arcsoft-face/issues)
-[![GitHub forks](https://img.shields.io/github/forks/ghtz08/arcsoft-face?style=flat-square)](https://github.com/ghtz08/arcsoft-face/network)
-[![GitHub stars](https://img.shields.io/github/stars/ghtz08/arcsoft-face)](https://github.com/ghtz08/arcsoft-face/stargazers)
+[![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg?style=flat-square)](https://996.icu)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg?style=flat-square)](/LICENSE)
+![Repo Size](https://img.shields.io/github/repo-size/ghtz08/arcsoft-face?style=flat-square)
+![Code Size](https://img.shields.io/github/languages/code-size/ghtz08/arcsoft-face?style=flat-square)
 
 对 ArcSoft 公司提供的 ArcFace SDK 使用 C++ 进行简单的封装，主要带来了以下几个新特性：
 
@@ -70,3 +71,7 @@
 > 提示
 > 时间的封装存在 3 冗余
 > 版本号的封装存在 3 冗余
+
+## 许可证
+
+反 996 许可证版本 1.0：[中文](/LICENSE_CN)、[英文](/LICENSE)。
