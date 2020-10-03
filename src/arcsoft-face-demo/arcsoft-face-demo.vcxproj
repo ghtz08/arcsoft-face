@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\arcsoft-face\angle.cpp" />
     <ClCompile Include="..\source\arcsoft-face\except.cpp" />
     <ClCompile Include="..\source\arcsoft-face\face_info.cpp" />
     <ClCompile Include="..\source\arcsoft-face\image_ref.cpp" />
@@ -171,6 +172,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\arcsoft-face\angle.h" />
     <ClInclude Include="..\include\arcsoft-face\except.h" />
     <ClInclude Include="..\include\arcsoft-face\face_info.h" />
     <ClInclude Include="..\include\arcsoft-face\image_ref.h" />

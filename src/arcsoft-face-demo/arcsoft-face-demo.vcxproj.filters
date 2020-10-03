@@ -39,6 +39,9 @@
     <ClCompile Include="..\source\arcsoft-face\image_ref.cpp">
       <Filter>源文件\arcsoft-face</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\arcsoft-face\angle.cpp">
+      <Filter>源文件\arcsoft-face</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\arcsoft_face.h">
@@ -57,6 +60,9 @@
       <Filter>头文件\arcsoft-face</Filter>
     </ClInclude>
     <ClInclude Include="..\include\arcsoft-face\image_ref.h">
+      <Filter>头文件\arcsoft-face</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\arcsoft-face\angle.h">
       <Filter>头文件\arcsoft-face</Filter>
     </ClInclude>
   </ItemGroup>
